@@ -156,7 +156,7 @@ paths:
                   loraEdgeWiFi: 000201538B54000201538B50000213445520
               LoRa Edge WiFi plus LoRaWAN:
                 value:
-                  loragateways:
+                  lora:
                     minValidGateways: 1
                     uplinks:
                       - - gatewayId: GW-3
