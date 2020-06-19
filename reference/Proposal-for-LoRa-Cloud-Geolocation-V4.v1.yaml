@@ -11,13 +11,13 @@ servers:
   - url: 'http://gls.loracloud.com/api/v4'
     description: LoRa Cloud GLS
 tags:
-  - name: Geolocate a device
+  - name: Geolocate
     description: Use one or more methods to locate the device
 paths:
   /geolocate:
     post:
       tags:
-        - Geolocate a device
+        - Geolocate
       summary: 'Geolocate an object using LoRaWAN, WiFi or GNSS scanner'
       operationId: post-geolocate
       responses:
