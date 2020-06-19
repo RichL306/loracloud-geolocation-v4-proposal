@@ -12,7 +12,13 @@ servers:
     description: LoRa Cloud GLS
 tags:
   - name: Geolocate
-    description: Use one or more methods to locate the device
+    description: "Use one or more methods to locate the device"
+  - name: Geolocate Examples
+    description: "Usage examples"
+  - name: lora
+  - name: WiFi
+  - name: Lora Edge Wifi
+  - name: Lora Edge Gnss
 paths:
   /geolocate:
     post:
@@ -341,6 +347,8 @@ components:
           $ref: '#/components/schemas/LoraEdgeGnss'
         loraEdgeWifi:
           $ref: '#/components/schemas/loraEdgeWiFi'
+      x-tags:
+        - Geolocate Examples
     loraGateways:
       title: loraGateways
       type: object
@@ -421,6 +429,8 @@ components:
             $ref: '#/components/schemas/uplink'
       required:
         - uplinks
+      x-tags:
+        - lora
     wifiAccessPoint:
       title: wifiAccessPoint
       type: object
@@ -479,6 +489,8 @@ components:
           description: 'If TRUE, then the device is assumed to be at the altitude of the assistance location'
       required:
         - navMessage
+      x-tags:
+        - lora Edge Gnss
     captureTime:
       title: captureTime
       type: object
@@ -594,6 +606,8 @@ components:
       required:
         - wifiAccessPoints
       description: ''
+      x-tags:
+        - Wifi
     loraEdgeWiFi:
       title: loraEdgeWiFi
       type: object
@@ -606,6 +620,8 @@ components:
           description: LoRa Edge WiFi scan message extracted from payload
       required:
         - payload
+      x-tags:
+        - lora Edge Wifi
   securitySchemes:
     Authorization:
       name: API Key
