@@ -12,9 +12,7 @@ servers:
     description: LoRa Cloud GLS
 tags:
   - name: Geolocate
-    description: "Use one or more methods to locate the device"
-  - name: Geolocate Examples
-    description: "Usage examples"
+    description: Use one or more methods to locate the device
   - name: LoRa
   - name: WiFi
   - name: Lora Edge Wifi
@@ -44,311 +42,159 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/geolocation'
-            examples: {}
+              properties:
+                lora:
+                  $ref: '#/components/schemas/loraGateways'
+                wifi:
+                  $ref: '#/components/schemas/wifiAccessPoints'
+                loraEdgeGnss:
+                  $ref: '#/components/schemas/LoraEdgeGnss'
+                loraEdgeWifi:
+                  $ref: '#/components/schemas/loraEdgeWiFi'
+            examples:
+              LoRa WAN only:
+                value:
+                  lora:
+                    minValidGateways: 1
+                    uplinks:
+                      - - rssi: -86
+                          snr: 15
+                          toa: 10000
+                          antennaLocation:
+                            lat: 46.98886
+                            lng: 6.91287
+                            alt: 513
+                        - rssi: -93
+                          snr: 13.5
+                          toa: 5000
+                          antennaLocation:
+                            lat: 46.946
+                            lng: 6.91287
+                            alt: 510
+                        - gatewayId: GW-3
+                          antennaId: 0
+                          rssi: -89
+                          snr: 15
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+                        - gatewayId: GW-3
+                          antennaId: 1
+                          rssi: -89
+                          snr: 10
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+                      - - rssi: -86
+                          snr: 15
+                          toa: 10000
+                          antennaLocation:
+                            lat: 46.98886
+                            lng: 6.91287
+                            alt: 513
+                        - rssi: -93
+                          snr: 13.5
+                          toa: 5000
+                          antennaLocation:
+                            lat: 46.946
+                            lng: 6.91287
+                            alt: 510
+                        - gatewayId: GW-3
+                          antennaId: 0
+                          rssi: -89
+                          snr: 15
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+                        - gatewayId: GW-3
+                          antennaId: 1
+                          rssi: -89
+                          snr: 10
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+              LoRa Edge GNSS with LoRaWAN:
+                value:
+                  lora:
+                    minValidGateways: 1
+                    uplinks:
+                      - - rssi: -86
+                          snr: 15
+                          toa: 10000
+                          antennaLocation:
+                            lat: 46.98886
+                            lng: 6.91287
+                            alt: 513
+                        - rssi: -93
+                          snr: 13.5
+                          toa: 5000
+                          antennaLocation:
+                            lat: 46.946
+                            lng: 6.91287
+                            alt: 510
+                  loraEdgeGnss:
+                    navMessage: string
+                    captureTime:
+                      iso: '2020-05-05T08:45:02.034Z'
+                      accuracy: 1
+              WiFi from non LoRa Edge:
+                value:
+                  wifi:
+                    wifiAccessPoints:
+                      - macAddress: '00:02:01:53:8B:54'
+                        signalStrength: -22
+                      - macAddress: '00:02:01:53:8B:50'
+                        signalStrength: -20
+                      - macAddress: '00:02:13:44:55:20'
+                        signalStrength: -80
+              WiFi from LoRa Edge only:
+                value:
+                  loraEdgeWiFi: 000201538B54000201538B50000213445520
+              LoRa Edge WiFi plus LoRaWAN:
+                value:
+                  loragateways:
+                    minValidGateways: 1
+                    uplinks:
+                      - - gatewayId: GW-3
+                          antennaId: 0
+                          rssi: -89
+                          snr: 15
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+                        - gatewayId: GW-3
+                          antennaId: 1
+                          rssi: -89
+                          snr: 10
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+                      - - gatewayId: GW-3
+                          antennaId: 0
+                          rssi: -89
+                          snr: 15
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+                        - gatewayId: GW-3
+                          antennaId: 1
+                          rssi: -89
+                          snr: 10
+                          antennaLocation:
+                            lat: 46.983753
+                            lng: 6.906008
+                            alt: 479
+                  loraEdgeWiFi: 000201538B54000201538B50000213445520
         description: ''
 components:
   schemas:
-    loraReception:
-      title: loraReception
-      type: object
-      description: Object containing reception data for one antenna of one GW
-      x-examples:
-        Single Gateway:
-          snr: 1.3
-          rssi: -119
-          antennaLocation:
-            lat: 45.2
-            lng: 5.7
-            alt: 282
-        Gateway with diversity:
-          gatewayId: GW-3
-          antennaId: 0
-          rssi: -89
-          snr: 15
-          antennaLocation:
-            lat: 46.983753
-            lng: 6.906008
-            alt: 479
-        Gateway with Diversity and TOA:
-          gatewayId: GW-3
-          antennaId: 0
-          rssi: -89
-          snr: 15
-          toa: 10351
-          antennaLocation:
-            lat: 46.983753
-            lng: 6.906008
-            alt: 479
-      properties:
-        snr:
-          type: number
-          description: SNR at the receiving antenna (dB)
-          format: float
-        rssi:
-          type: number
-          description: RSSI at the receving antenna (dBm)
-          format: float
-        toa:
-          type: integer
-          description: Time Of Arrival (sub-seconds in ns since top of second)
-        antennaLocation:
-          $ref: '#/components/schemas/location'
-        gatewayId:
-          type: string
-          description: Gateway identifier free-form string- only required for uplinks with more than one antenna per GW
-        antennaId:
-          type: string
-          description: 'Antenna identifier free-form string, only required for uplinks with more than one antenna per gateway'
-      required:
-        - snr
-        - rssi
-        - antennaLocation
-    location:
-      title: location
-      type: object
-      x-examples:
-        Meylan:
-          lat: 45.2
-          lng: 5.7
-          alt: 228
-      description: 'GPS coordinates object, optional altitude'
-      properties:
-        lat:
-          type: number
-          description: Latitude (degrees)
-          format: float
-        lng:
-          type: number
-          description: Longitude (degrees)
-          format: float
-        alt:
-          type: number
-          description: Altitude (meters)
-      required:
-        - lat
-        - lng
-    uplink:
-      title: uplink
-      type: object
-      description: |
-        Object containing an array of receptions the of the uplink
-      x-examples:
-        Example: {}
-      properties:
-        receptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/loraReception'
-      required:
-        - receptions
-    resultLocation:
-      title: resultLocation
-      type: object
-      description: Object returned on successful location
-      properties:
-        location:
-          $ref: '#/components/schemas/location'
-        accuracy:
-          type: integer
-          description: Estimated result accuracy in meters
-        algorithmUsed:
-          type: string
-          enum:
-            - rssi
-            - tdoa
-            - wifi
-            - gnss
-          description: the algorithm or technique used compute the location
-        rssi:
-          $ref: '#/components/schemas/resultLora'
-        tdoa:
-          $ref: '#/components/schemas/resultLora'
-        gnss:
-          $ref: '#/components/schemas/resultGnss'
-        wifi:
-          $ref: '#/components/schemas/resultWifi'
-        warnings:
-          type: array
-          items:
-            $ref: '#/components/schemas/messages'
-      required:
-        - location
-        - accuracy
-        - algorithmUsed
-    resultLora:
-      title: resultLora
-      type: object
-      description: 'LoRa dedicated results '
-      x-examples:
-        Exmaple:
-          gatewaysUsed: 5
-          gatewaysReceived: 7
-      properties:
-        gatewaysUsed:
-          type: integer
-          description: Numer of gateways used by the solver to compute a result
-        gatewaysReceived:
-          type: integer
-          description: Number of gateways provided to the solver
-        hdop:
-          type: number
-          description: Horizontal dilution of precision
-      required:
-        - gatewaysUsed
-        - gatewaysReceived
-        - hdop
-    geolocation:
-      title: geolocation
-      type: object
-      description: Object to be provided with a geolocation call
-      x-examples:
-        LoRaWAN only:
-          lora:
-            minValidGateways: 1
-            uplinks:
-              - - rssi: -86
-                  snr: 15
-                  toa: 10000
-                  antennaLocation:
-                    lat: 46.98886
-                    lng: 6.91287
-                    alt: 513
-                - rssi: -93
-                  snr: 13.5
-                  toa: 5000
-                  antennaLocation:
-                    lat: 46.946
-                    lng: 6.91287
-                    alt: 510
-                - gatewayId: GW-3
-                  antennaId: 0
-                  rssi: -89
-                  snr: 15
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-                - gatewayId: GW-3
-                  antennaId: 1
-                  rssi: -89
-                  snr: 10
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-              - - rssi: -86
-                  snr: 15
-                  toa: 10000
-                  antennaLocation:
-                    lat: 46.98886
-                    lng: 6.91287
-                    alt: 513
-                - rssi: -93
-                  snr: 13.5
-                  toa: 5000
-                  antennaLocation:
-                    lat: 46.946
-                    lng: 6.91287
-                    alt: 510
-                - gatewayId: GW-3
-                  antennaId: 0
-                  rssi: -89
-                  snr: 15
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-                - gatewayId: GW-3
-                  antennaId: 1
-                  rssi: -89
-                  snr: 10
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-        LoRaEdge GNSS with LoRaWAN:
-          lora:
-            minValidGateways: 1
-            uplinks:
-              - - rssi: -86
-                  snr: 15
-                  toa: 10000
-                  antennaLocation:
-                    lat: 46.98886
-                    lng: 6.91287
-                    alt: 513
-                - rssi: -93
-                  snr: 13.5
-                  toa: 5000
-                  antennaLocation:
-                    lat: 46.946
-                    lng: 6.91287
-                    alt: 510
-          loraEdgeGnss:
-            navMessage: string
-            captureTime:
-              iso: '2020-05-05T08:45:02.034Z'
-              accuracy: 1
-        'WiFi from non-LoRaEdge ':
-          wifi:
-            wifiAccessPoints:
-              - macAddress: '00:02:01:53:8B:54'
-                signalStrength: -22
-              - macAddress: '00:02:01:53:8B:50'
-                signalStrength: -20
-              - macAddress: '00:02:13:44:55:20'
-                signalStrength: -80
-        WiFi from LoraEdge only:
-          loraEdgeWiFi: 000201538B54000201538B50000213445520
-        LoRa Egde WiFi plus LoRaWAN:
-          loragateways:
-            minValidGateways: 1
-            uplinks:
-              - - gatewayId: GW-3
-                  antennaId: 0
-                  rssi: -89
-                  snr: 15
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-                - gatewayId: GW-3
-                  antennaId: 1
-                  rssi: -89
-                  snr: 10
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-              - - gatewayId: GW-3
-                  antennaId: 0
-                  rssi: -89
-                  snr: 15
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-                - gatewayId: GW-3
-                  antennaId: 1
-                  rssi: -89
-                  snr: 10
-                  antennaLocation:
-                    lat: 46.983753
-                    lng: 6.906008
-                    alt: 479
-          loraEdgeWiFi: 000201538B54000201538B50000213445520
-      properties:
-        lora:
-          $ref: '#/components/schemas/loraGateways'
-        wifi:
-          $ref: '#/components/schemas/wifiAccessPoints'
-        loraEdgeGnss:
-          $ref: '#/components/schemas/LoraEdgeGnss'
-        loraEdgeWifi:
-          $ref: '#/components/schemas/loraEdgeWiFi'
-      x-tags:
-        - Geolocate Examples
     loraGateways:
       title: loraGateways
       type: object
@@ -431,36 +277,24 @@ components:
         - uplinks
       x-tags:
         - LoRa
-    wifiAccessPoint:
-      title: wifiAccessPoint
+    wifiAccessPoints:
+      title: wifiAccessPoints
       type: object
-      description: Object representing an access point
-      properties:
-        macAddress:
-          type: string
-          description: 'Mac address (HEX representation, either with no separation or with colons separating bytes)'
-        signalStrength:
-          type: number
-          description: Signal strength (dBm)
-        age:
-          type: number
-          description: "Time in between this AP's capture and the first AP in the array (ms)"
-        channel:
-          type: number
-          description: Channel over which the AP is transmitting
-      required:
-        - macAddress
       x-examples:
-        colons:
-          macAddress: '00:25:9c:cf:1c:ac'
-          signalStrength: -43
-          age: 0
-          channel: 11
-        no colons:
-          macAddress: 00259ccf1cac
-          signalStrength: -43
-          age: 0
-          channel: 11
+        Example: {}
+      properties:
+        profile:
+          type: string
+          description: RFU- Access Point filtering profile
+        wifiAccessPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/wifiAccessPoint'
+      required:
+        - wifiAccessPoints
+      description: ''
+      x-tags:
+        - Wifi
     LoraEdgeGnss:
       title: LoraEdgeGnss
       type: object
@@ -513,6 +347,188 @@ components:
         ISO-8601:
           iso: '2020-05-05T08:45:02.034Z'
           accuracy: 1
+    loraEdgeWiFi:
+      title: loraEdgeWiFi
+      type: object
+      properties:
+        profile:
+          type: string
+          description: RFU- Access Point filtering profile
+        payload:
+          type: string
+          description: LoRa Edge WiFi scan message extracted from payload
+      required:
+        - payload
+      x-tags:
+        - lora Edge Wifi
+    uplink:
+      title: uplink
+      type: object
+      description: |
+        Object containing an array of receptions the of the uplink
+      x-examples:
+        Example: {}
+      properties:
+        receptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/loraReception'
+      required:
+        - receptions
+    loraReception:
+      title: loraReception
+      type: object
+      description: Object containing reception data for one antenna of one GW
+      x-examples:
+        Single Gateway:
+          snr: 1.3
+          rssi: -119
+          antennaLocation:
+            lat: 45.2
+            lng: 5.7
+            alt: 282
+        Gateway with diversity:
+          gatewayId: GW-3
+          antennaId: 0
+          rssi: -89
+          snr: 15
+          antennaLocation:
+            lat: 46.983753
+            lng: 6.906008
+            alt: 479
+        Gateway with Diversity and TOA:
+          gatewayId: GW-3
+          antennaId: 0
+          rssi: -89
+          snr: 15
+          toa: 10351
+          antennaLocation:
+            lat: 46.983753
+            lng: 6.906008
+            alt: 479
+      properties:
+        snr:
+          type: number
+          description: SNR at the receiving antenna (dB)
+          format: float
+        rssi:
+          type: number
+          description: RSSI at the receving antenna (dBm)
+          format: float
+        toa:
+          type: integer
+          description: Time Of Arrival (sub-seconds in ns since top of second)
+        antennaLocation:
+          $ref: '#/components/schemas/location'
+        gatewayId:
+          type: string
+          description: Gateway identifier free-form string- only required for uplinks with more than one antenna per GW
+        antennaId:
+          type: string
+          description: 'Antenna identifier free-form string, only required for uplinks with more than one antenna per gateway'
+      required:
+        - snr
+        - rssi
+        - antennaLocation
+    wifiAccessPoint:
+      title: wifiAccessPoint
+      type: object
+      description: Object representing an access point
+      properties:
+        macAddress:
+          type: string
+          description: 'Mac address (HEX representation, either with no separation or with colons separating bytes)'
+        signalStrength:
+          type: number
+          description: Signal strength (dBm)
+        age:
+          type: number
+          description: "Time in between this AP's capture and the first AP in the array (ms)"
+        channel:
+          type: number
+          description: Channel over which the AP is transmitting
+      required:
+        - macAddress
+      x-examples:
+        colons:
+          macAddress: '00:25:9c:cf:1c:ac'
+          signalStrength: -43
+          age: 0
+          channel: 11
+        no colons:
+          macAddress: 00259ccf1cac
+          signalStrength: -43
+          age: 0
+          channel: 11
+    resultLocation:
+      title: resultLocation
+      type: object
+      description: Object returned on successful location
+      properties:
+        location:
+          $ref: '#/components/schemas/location'
+        accuracy:
+          type: integer
+          description: Estimated result accuracy in meters
+        algorithmUsed:
+          type: string
+          enum:
+            - rssi
+            - tdoa
+            - wifi
+            - gnss
+          description: the algorithm or technique used compute the location
+        rssi:
+          $ref: '#/components/schemas/resultLora'
+        tdoa:
+          $ref: '#/components/schemas/resultLora'
+        gnss:
+          $ref: '#/components/schemas/resultGnss'
+        wifi:
+          $ref: '#/components/schemas/resultWifi'
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/messages'
+      required:
+        - location
+        - accuracy
+        - algorithmUsed
+    resultLora:
+      title: resultLora
+      type: object
+      description: 'LoRa dedicated results '
+      x-examples:
+        Exmaple:
+          gatewaysUsed: 5
+          gatewaysReceived: 7
+      properties:
+        gatewaysUsed:
+          type: integer
+          description: Numer of gateways used by the solver to compute a result
+        gatewaysReceived:
+          type: integer
+          description: Number of gateways provided to the solver
+        hdop:
+          type: number
+          description: Horizontal dilution of precision
+      required:
+        - gatewaysUsed
+        - gatewaysReceived
+        - hdop
+    resultWifi:
+      title: resultWifi
+      type: object
+      description: Wi-Fi dedicated results
+      properties:
+        APsReceived:
+          type: integer
+          description: Number of WiFi accesspoints received in the query
+      required:
+        - APsReceived
+      x-examples:
+        Example:
+          APsReceived: 4
     resultGnss:
       title: resultGnss
       type: object
@@ -558,19 +574,14 @@ components:
         - usable
         - badEphemeris
         - otherDiscards
-    resultWifi:
-      title: resultWifi
+    Errors:
+      title: Errors
       type: object
-      description: Wi-Fi dedicated results
       properties:
-        APsReceived:
-          type: integer
-          description: Number of WiFi accesspoints received in the query
-      required:
-        - APsReceived
-      x-examples:
-        Example:
-          APsReceived: 4
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/messages'
     messages:
       title: messages
       type: object
@@ -582,46 +593,30 @@ components:
           type: string
         message:
           type: string
-    Errors:
-      title: Errors
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/messages'
-    wifiAccessPoints:
-      title: wifiAccessPoints
+    location:
+      title: location
       type: object
       x-examples:
-        Example: {}
+        Meylan:
+          lat: 45.2
+          lng: 5.7
+          alt: 228
+      description: 'GPS coordinates object, optional altitude'
       properties:
-        profile:
-          type: string
-          description: RFU- Access Point filtering profile
-        wifiAccessPoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/wifiAccessPoint'
+        lat:
+          type: number
+          description: Latitude (degrees)
+          format: float
+        lng:
+          type: number
+          description: Longitude (degrees)
+          format: float
+        alt:
+          type: number
+          description: Altitude (meters)
       required:
-        - wifiAccessPoints
-      description: ''
-      x-tags:
-        - Wifi
-    loraEdgeWiFi:
-      title: loraEdgeWiFi
-      type: object
-      properties:
-        profile:
-          type: string
-          description: RFU- Access Point filtering profile
-        payload:
-          type: string
-          description: LoRa Edge WiFi scan message extracted from payload
-      required:
-        - payload
-      x-tags:
-        - lora Edge Wifi
+        - lat
+        - lng
   securitySchemes:
     Authorization:
       name: API Key
