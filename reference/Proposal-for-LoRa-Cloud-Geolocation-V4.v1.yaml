@@ -15,7 +15,7 @@ tags:
     description: "Use one or more methods to locate the device"
   - name: Geolocate Examples
     description: "Usage examples"
-  - name: lora
+  - name: LoRa
   - name: WiFi
   - name: Lora Edge Wifi
   - name: Lora Edge Gnss
@@ -134,7 +134,7 @@ components:
       description: |
         Object containing an array of receptions the of the uplink
       x-examples:
-        example-1: {}
+        Example: {}
       properties:
         receptions:
           type: array
@@ -354,7 +354,7 @@ components:
       type: object
       description: 'LoRa Gateways object for RSSI/TDOA location. An array of uplinks, each one received at an array of antennas'
       x-examples:
-        example-1:
+        Example:
           minValidGateways: 1
           uplinks:
             - - rssi: -86
@@ -430,7 +430,7 @@ components:
       required:
         - uplinks
       x-tags:
-        - lora
+        - LoRa
     wifiAccessPoint:
       title: wifiAccessPoint
       type: object
@@ -594,7 +594,7 @@ components:
       title: wifiAccessPoints
       type: object
       x-examples:
-        example-1: {}
+        Example: {}
       properties:
         profile:
           type: string
