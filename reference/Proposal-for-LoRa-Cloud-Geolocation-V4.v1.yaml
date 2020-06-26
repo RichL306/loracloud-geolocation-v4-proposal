@@ -520,15 +520,15 @@ components:
       title: resultWifi
       type: object
       description: Wi-Fi dedicated results
-      properties:
-        APsReceived:
-          type: integer
-          description: Number of WiFi accesspoints received in the query
-      required:
-        - APsReceived
       x-examples:
         Example:
           APsReceived: 4
+      properties:
+        accessPointsReceived:
+          type: integer
+          description: Number of WiFi accesspoints received in the query
+      required:
+        - accessPointsReceived
     resultGnss:
       title: resultGnss
       type: object
@@ -543,7 +543,7 @@ components:
         captureTimeIso:
           type: string
           description: Computed Time of the capture in ISO-8601 date-time format
-        SatellitesReceived:
+        satellitesReceived:
           type: integer
           description: Total Number of Satellites received in the query
         gps:
@@ -554,7 +554,7 @@ components:
         - gdop
         - captureTimeGps
         - captureTimeIso
-        - SatellitesReceived
+        - satellitesReceived
     resultGnssSatellites:
       title: resultGnssSatellites
       type: object
